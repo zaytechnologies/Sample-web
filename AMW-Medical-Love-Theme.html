@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMW - Advanced Medical Wellness</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 2px solid #E94364;
+            border-radius: 4px;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #E94364;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .custom-checkbox .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #E94364;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .tab-active {
+            background-color: #E94364;
+            color: white;
+        }
+    </style>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#E94364',secondary:'#2B84EA'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+</head>
+<body class="bg-white">
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <h1 class="text-3xl font-['Pacifico'] text-primary mr-2">AMW</h1>
+                <span class="text-sm text-gray-600 hidden md:block">Advanced Medical Wellness</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-gray-800 hover:text-primary font-medium transition">Home</a>
+                <a href="#services" class="text-gray-800 hover:text-primary font-medium transition">Services</a>
+                <a href="#about" class="text-gray-800 hover:text-primary font-medium transition">About Us</a>
+                <a href="#doctors" class="text-gray-800 hover:text-primary font-medium transition">Doctors</a>
+                <a href="#contact" class="text-gray-800 hover:text-primary font-medium transition">Contact</a>
+            </nav>
+            
+            <button class="bg-primary text-white px-6 py-2 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                Book Appointment
+            </button>
+            
+            <div class="md:hidden w-8 h-8 flex items-center justify-center">
+                <i class="ri-menu-line ri-xl"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[600px] overflow-hidden">
+        <div style="background-image: url('https://readdy.ai/api/search-image?query=modern%20medical%20facility%20with%20soft%20lighting%2C%20clean%20environment%2C%20medical%20professionals%20in%20white%20coats%20attending%20to%20patients%2C%20warm%20and%20welcoming%20atmosphere%2C%20advanced%20medical%20equipment%2C%20blue%20and%20red%20color%20accents%2C%20high-quality%20healthcare%20setting%2C%20professional%20medical%20environment&width=1920&height=1080&seq=1&orientation=landscape');" class="absolute inset-0 bg-cover bg-center bg-no-repeat"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 to-gray-900/30"></div>
+        
+        <div class="container mx-auto px-6 h-full flex items-center relative z-10">
+            <div class="max-w-2xl text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Advanced Healthcare for a Better Tomorrow</h1>
+                <p class="text-lg mb-8">Experience world-class medical care with compassionate professionals dedicated to your wellbeing. At AMW, we combine cutting-edge technology with personalized care.</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-secondary text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap flex items-center">
+                        <i class="ri-user-search-line ri-lg mr-2"></i>
+                        Find a Doctor
+                    </button>
+                    <button class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap flex items-center">
+                        <i class="ri-first-aid-kit-line ri-lg mr-2"></i>
+                        Emergency Care
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Medical Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive healthcare services tailored to meet your needs with the highest standards of medical excellence.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-heart-pulse-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Cardiology</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive heart care with advanced diagnostics and treatment options for all cardiac conditions.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-mental-health-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Neurology</h3>
+                    <p class="text-gray-600 mb-4">Expert care for neurological disorders with state-of-the-art diagnostic technology and treatment plans.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-empathize-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Orthopedics</h3>
+                    <p class="text-gray-600 mb-4">Specialized care for bone and joint issues, from sports injuries to complex reconstructive procedures.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-microscope-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Laboratory Services</h3>
+                    <p class="text-gray-600 mb-4">Accurate and timely diagnostic testing with advanced laboratory equipment and expert technicians.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-psychotherapy-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pediatrics</h3>
+                    <p class="text-gray-600 mb-4">Compassionate care for children of all ages, from routine check-ups to specialized pediatric treatments.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-medicine-bottle-line ri-xl text-secondary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pharmacy</h3>
+                    <p class="text-gray-600 mb-4">Full-service pharmacy with prescription medications, over-the-counter products, and medication counseling.</p>
+                    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+                        Learn More
+                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://readdy.ai/api/search-image?query=diverse%20team%20of%20medical%20professionals%20in%20a%20modern%20hospital%20setting%2C%20doctors%20and%20nurses%20collaborating%2C%20wearing%20white%20coats%20and%20scrubs%2C%20professional%20healthcare%20environment%2C%20clean%20medical%20facility%2C%20warm%20lighting%2C%20caring%20expressions%2C%20medical%20equipment%20in%20background&width=800&height=600&seq=2&orientation=landscape" alt="AMW Medical Team" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-secondary mb-4">About AMW</h2>
+                    <p class="text-gray-700 mb-6">Advanced Medical Wellness (AMW) is a premier healthcare provider committed to delivering exceptional medical services with compassion and integrity. Founded in 2005, we have grown to become a trusted name in healthcare excellence.</p>
+                    
+                    <h3 class="text-xl font-semibold mb-3">Our Mission</h3>
+                    <p class="text-gray-700 mb-6">To enhance the health and wellbeing of the communities we serve through exceptional care, innovative treatments, and a patient-centered approach.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold mb-3">Why Choose Us</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-primary mr-2">●</span>
+                                <span>Board-certified physicians with extensive experience</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary mr-2">●</span>
+                                <span>State-of-the-art medical facilities and equipment</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary mr-2">●</span>
+                                <span>Patient-centered approach to healthcare</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary mr-2">●</span>
+                                <span>Comprehensive care under one roof</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-primary mr-2">●</span>
+                                <span>24/7 emergency services</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+                            <i class="ri-award-line ri-lg text-secondary mr-2"></i>
+                            <span class="text-sm font-medium">JCI Accredited</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+                            <i class="ri-health-book-line ri-lg text-secondary mr-2"></i>
+                            <span class="text-sm font-medium">ISO 9001:2015</span>
+                        </div>
+                        <div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+                            <i class="ri-medal-line ri-lg text-secondary mr-2"></i>
+                            <span class="text-sm font-medium">Healthcare Excellence Award</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Expert Doctors</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Meet our team of experienced medical professionals dedicated to providing you with the highest quality care.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Doctor 1 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20mature%20male%20doctor%20with%20glasses%20wearing%20white%20coat%2C%20confident%20expression%2C%20medical%20office%20background%2C%20professional%20headshot%2C%20warm%20lighting%2C%20trustworthy%20appearance&width=400&height=400&seq=3&orientation=squarish" alt="Dr. Robert Anderson" class="w-full h-64 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Dr. Robert Anderson</h3>
+                        <p class="text-secondary font-medium mb-3">Cardiology</p>
+                        <p class="text-gray-600 text-sm mb-4">MD, FACC with over 15 years of experience in interventional cardiology and heart disease management.</p>
+                        <button class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                            Book Appointment
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor 2 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20female%20doctor%20with%20dark%20hair%20wearing%20white%20coat%2C%20confident%20expression%2C%20medical%20office%20background%2C%20professional%20headshot%2C%20warm%20lighting%2C%20friendly%20and%20approachable%20appearance&width=400&height=400&seq=4&orientation=squarish" alt="Dr. Sarah Mitchell" class="w-full h-64 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Dr. Sarah Mitchell</h3>
+                        <p class="text-secondary font-medium mb-3">Neurology</p>
+                        <p class="text-gray-600 text-sm mb-4">MD, PhD specializing in neurological disorders, stroke management, and neuro-rehabilitation.</p>
+                        <button class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                            Book Appointment
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor 3 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20a%20male%20doctor%20with%20dark%20skin%20wearing%20white%20coat%2C%20confident%20expression%2C%20medical%20office%20background%2C%20professional%20headshot%2C%20warm%20lighting%2C%20compassionate%20appearance&width=400&height=400&seq=5&orientation=squarish" alt="Dr. James Wilson" class="w-full h-64 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Dr. James Wilson</h3>
+                        <p class="text-secondary font-medium mb-3">Orthopedics</p>
+                        <p class="text-gray-600 text-sm mb-4">MD, FAAOS with expertise in joint replacement, sports medicine, and minimally invasive surgery.</p>
+                        <button class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                            Book Appointment
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor 4 -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20an%20Asian%20female%20doctor%20wearing%20white%20coat%2C%20confident%20expression%2C%20medical%20office%20background%2C%20professional%20headshot%2C%20warm%20lighting%2C%20kind%20and%20professional%20appearance&width=400&height=400&seq=6&orientation=squarish" alt="Dr. Emily Chen" class="w-full h-64 object-cover object-top">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-1">Dr. Emily Chen</h3>
+                        <p class="text-secondary font-medium mb-3">Pediatrics</p>
+                        <p class="text-gray-600 text-sm mb-4">MD, FAAP dedicated to comprehensive pediatric care from newborns to adolescents.</p>
+                        <button class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                            Book Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="bg-secondary text-white px-8 py-3 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                    View All Doctors
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Contact Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We're here to help you with any questions or concerns. Reach out to us through any of the following channels.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contact Information -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="ri-map-pin-line ri-lg text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Address</h4>
+                                <p class="text-gray-600">123 Medical Center Drive<br>New York, NY 10001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="ri-phone-line ri-lg text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Phone</h4>
+                                <p class="text-gray-600">Main: (212) 555-1234</p>
+                                <p class="text-primary font-medium">Emergency: (212) 555-9999</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="ri-mail-line ri-lg text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Email</h4>
+                                <p class="text-gray-600">info@amw-health.com</p>
+                                <p class="text-gray-600">appointments@amw-health.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="ri-time-line ri-lg text-secondary"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Working Hours</h4>
+                                <p class="text-gray-600">Monday - Friday: 8:00 AM - 8:00 PM</p>
+                                <p class="text-gray-600">Saturday: 9:00 AM - 5:00 PM</p>
+                                <p class="text-gray-600">Sunday: 10:00 AM - 2:00 PM</p>
+                                <p class="text-primary font-medium">Emergency Care: 24/7</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-medium mb-3">Follow Us</h4>
+                        <div class="flex space-x-3">
+                            <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
+                                <i class="ri-facebook-fill ri-lg text-secondary"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
+                                <i class="ri-twitter-fill ri-lg text-secondary"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
+                                <i class="ri-instagram-line ri-lg text-secondary"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
+                                <i class="ri-linkedin-fill ri-lg text-secondary"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Map -->
+                <div class="bg-white p-6 rounded-lg shadow-md overflow-hidden h-[450px]">
+                    <h3 class="text-xl font-semibold mb-4">Find Us</h3>
+                    <div class="h-[380px] w-full rounded-lg overflow-hidden relative">
+                        <img src="https://public.readdy.ai/gen_page/map_placeholder_1280x720.png" alt="Location Map" class="absolute w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Send a Message</h3>
+                    
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 mb-2">Full Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <select id="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary pr-8">
+                                <option value="">Select a subject</option>
+                                <option value="appointment">Appointment Inquiry</option>
+                                <option value="general">General Information</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="billing">Billing Question</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"></textarea>
+                        </div>
+                        
+                        <label class="custom-checkbox mb-4 block">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            <span class="ml-2">I agree to the privacy policy and terms of service</span>
+                        </label>
+                        
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-button font-medium hover:bg-opacity-90 transition whitespace-nowrap">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Banner -->
+    <section class="bg-primary py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-2xl font-bold text-white mb-2">24/7 Emergency Care</h3>
+                    <p class="text-white/80">Immediate medical attention when you need it most</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <div class="flex items-center bg-white/20 px-6 py-3 rounded-lg">
+                        <i class="ri-phone-fill ri-lg text-white mr-3"></i>
+                        <span class="text-white font-bold text-xl">(212) 555-9999</span>
+                    </div>
+                    
+                    <button class="bg-white text-primary px-6 py-3 rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Column 1 -->
+                <div>
+                    <h1 class="text-3xl font-['Pacifico'] text-white mb-4">AMW</h1>
+                    <p class="text-gray-400 mb-6">Advanced Medical Wellness provides comprehensive healthcare services with a commitment to excellence and compassionate care.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="ri-facebook-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="ri-twitter-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="ri-linkedin-fill ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Our Services</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#doctors" class="text-gray-400 hover:text-white transition">Our Doctors</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Patient Portal</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Our Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Cardiology</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Neurology</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Orthopedics</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Pediatrics</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Laboratory Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Emergency Care</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Pharmacy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 4 -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for health tips and updates.</p>
+                    
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 bg-gray-800 border border-gray-700 rounded-l focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-white">
+                            <button type="submit" class="bg-primary text-white px-4 py-2 rounded-r hover:bg-opacity-90 transition whitespace-nowrap">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div>
+                        <h4 class="font-medium mb-2 text-gray-300">We Accept</h4>
+                        <div class="flex space-x-3">
+                            <i class="ri-visa-fill ri-lg text-gray-400"></i>
+                            <i class="ri-mastercard-fill ri-lg text-gray-400"></i>
+                            <i class="ri-paypal-fill ri-lg text-gray-400"></i>
+                            <i class="ri-bank-card-fill ri-lg text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 mb-4 md:mb-0">© 2025 Advanced Medical Wellness. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-500 hover:text-gray-400 transition">Privacy Policy</a>
+                        <a href="#" class="text-gray-500 hover:text-gray-400 transition">Terms of Service</a>
+                        <a href="#" class="text-gray-500 hover:text-gray-400 transition">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script id="navigationScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.ri-menu-line');
+            const nav = document.querySelector('nav');
+            
+            if (mobileMenuButton && nav) {
+                mobileMenuButton.addEventListener('click', function() {
+                    nav.classList.toggle('hidden');
+                    nav.classList.toggle('flex');
+                    nav.classList.toggle('flex-col');
+                    nav.classList.toggle('absolute');
+                    nav.classList.toggle('top-16');
+                    nav.classList.toggle('right-6');
+                    nav.classList.toggle('bg-white');
+                    nav.classList.toggle('shadow-lg');
+                    nav.classList.toggle('p-4');
+                    nav.classList.toggle('rounded-lg');
+                    nav.classList.toggle('z-50');
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (!nav.classList.contains('hidden') && window.innerWidth < 768) {
+                            nav.classList.add('hidden');
+                            nav.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'right-6', 'bg-white', 'shadow-lg', 'p-4', 'rounded-lg', 'z-50');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script id="formHandlingScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Contact form handling
+            const contactForm = document.querySelector('#contact form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Form validation
+                    const name = this.querySelector('#name').value;
+                    const email = this.querySelector('#email').value;
+                    const message = this.querySelector('#message').value;
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    
+                    let isValid = true;
+                    
+                    if (!name.trim()) {
+                        isValid = false;
+                        highlightField(this.querySelector('#name'));
+                    }
+                    
+                    if (!email.trim() || !isValidEmail(email)) {
+                        isValid = false;
+                        highlightField(this.querySelector('#email'));
+                    }
+                    
+                    if (!message.trim()) {
+                        isValid = false;
+                        highlightField(this.querySelector('#message'));
+                    }
+                    
+                    if (!checkbox.checked) {
+                        isValid = false;
+                        this.querySelector('.custom-checkbox').classList.add('text-primary');
+                    }
+                    
+                    if (isValid) {
+                        // Simulate form submission
+                        const submitButton = this.querySelector('button[type="submit"]');
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Sending...';
+                        
+                        setTimeout(() => {
+                            submitButton.innerHTML = '<i class="ri-check-line"></i> Message Sent!';
+                            submitButton.classList.remove('bg-primary');
+                            submitButton.classList.add('bg-green-600');
+                            
+                            // Reset form
+                            this.reset();
+                            
+                            // Reset button after 3 seconds
+                            setTimeout(() => {
+                                submitButton.disabled = false;
+                                submitButton.innerHTML = 'Send Message';
+                                submitButton.classList.remove('bg-green-600');
+                                submitButton.classList.add('bg-primary');
+                            }, 3000);
+                        }, 1500);
+                    }
+                });
+            }
+            
+            // Newsletter form handling
+            const newsletterForm = document.querySelector('footer form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = this.querySelector('input[type="email"]').value;
+                    
+                    if (!email.trim() || !isValidEmail(email)) {
+                        this.querySelector('input[type="email"]').classList.add('ring-2', 'ring-primary/50');
+                        return;
+                    }
+                    
+                    // Simulate form submission
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="ri-loader-4-line ri-spin"></i>';
+                    
+                    setTimeout(() => {
+                        submitButton.innerHTML = '<i class="ri-check-line"></i>';
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = 'Subscribe';
+                        }, 3000);
+                    }, 1500);
+                });
+            }
+            
+            // Helper functions
+            function isValidEmail(email) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+            
+            function highlightField(field) {
+                field.classList.add('ring-2', 'ring-primary', 'border-primary');
+                field.addEventListener('input', function() {
+                    this.classList.remove('ring-2', 'ring-primary', 'border-primary');
+                }, { once: true });
+            }
+        });
+    </script>
+
+    <script id="customFormElementsScript">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Custom checkbox handling
+            const customCheckboxes = document.querySelectorAll('.custom-checkbox');
+            customCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        const input = this.querySelector('input[type="checkbox"]');
+                        input.checked = !input.checked;
+                        
+                        // Remove error styling if checked
+                        if (input.checked) {
+                            this.classList.remove('text-primary');
+                        }
+                    }
+                });
+            });
+            
+            // Custom select styling
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.addEventListener('focus', function() {
+                    this.classList.add('ring-2', 'ring-primary/50', 'border-primary');
+                });
+                
+                select.addEventListener('blur', function() {
+                    this.classList.remove('ring-2', 'ring-primary/50', 'border-primary');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
